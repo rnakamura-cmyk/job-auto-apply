@@ -5,6 +5,10 @@ credentials.json
 my_profile.md
 applied_urls.txt
 
+# 添付書類（個人情報）
+documents/*
+!documents/.gitkeep
+
 # 実行時生成ファイル
 venv/
 __pycache__/
