@@ -6,7 +6,7 @@
 2. プロジェクトを作成（または既存を選択）
 3. 「APIとサービス」→「ライブラリ」から **Google Sheets API** を有効化
 4. 「APIとサービス」→「認証情報」→「サービスアカウントを作成」
-5. キー（JSON形式）をダウンロードし、`automation_bridge/credentials.json` として保存
+5. キー（JSON形式）をダウンロードし、`案件自動応募/credentials.json` として保存
 
 ## 2. スプレッドシートの準備
 
@@ -19,7 +19,7 @@
 
 ## 3. config.json の更新
 
-`automation_bridge/config.json` を開き、以下を設定:
+`案件自動応募/config.json` を開き、以下を設定:
 
 ```json
 {
@@ -32,14 +32,14 @@
 ## 4. 依存パッケージのインストール
 
 ```bash
-cd automation_bridge
+cd 案件自動応募
 pip install -r requirements.txt
 ```
 
 または venv を使う場合:
 
 ```bash
-cd automation_bridge
+cd 案件自動応募
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -71,7 +71,7 @@ python3 sync_sheets.py
 ## ディレクトリ構成
 
 ```
-automation_bridge/
+案件自動応募/
 ├── inbox/          # Cowork が出力した未処理ファイル
 ├── processed/      # 正常処理済みファイル
 ├── error/          # エラーファイル

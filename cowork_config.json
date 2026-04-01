@@ -1,5 +1,5 @@
 {
-  "profile_path": "/Users/ryonkook/自動応募/automation_bridge/my_profile.md",
+  "_note": "パス設定は config.json の base_dir で一元管理。profile_path・output_dir はここに書かない。",
 
   "sites": ["crowdworks"],
 
@@ -25,7 +25,5 @@
   },
 
   "message_strategy": "profile_match",
-  "message_strategy_note": "profile_match = my_profile.md の強みと案件内容を照合して、その案件に最適化した応募文を自動生成する。固定文は使わない。",
-
-  "output_dir": "/Users/ryonkook/自動応募/automation_bridge/inbox"
+  "message_strategy_note": "profile_match = my_profile.md の強みと案件内容を照合して、その案件に最適化した応募文を自動生成する。固定文は使わない。"
 }

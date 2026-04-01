@@ -29,6 +29,39 @@ y で進める / n でキャンセル
 
 ## フェーズ1：技術セットアップ
 
+### 1-0. システムパスの自動検出（OS対応）
+
+以下のPythonスクリプトを実行して、このシステムの絶対パスを `config.json` の `base_dir` に書き込む：
+
+```bash
+python -c "
+import json, pathlib, sys
+base = str(pathlib.Path('.').resolve())
+p = pathlib.Path('config.json')
+cfg = json.loads(p.read_text(encoding='utf-8'))
+cfg['base_dir'] = base
+p.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding='utf-8')
+print('OS:', sys.platform)
+print('base_dir:', base)
+"
+```
+
+**Macの場合** `python` が見つからなければ `python3` に読み替える。
+
+実行後、表示されたパスをユーザーに確認する：
+
+```
+パスを設定しました：
+  OS: {表示されたOS}
+  フォルダ: {表示されたパス}
+
+このパスで合っていますか？（y / 違う場合は正しいパスを入力）
+```
+
+「y」以外が返ってきた場合は、入力されたパスで `config.json` の `base_dir` を手動で更新してから次へ進む。
+
+---
+
 ### 1-1. Pythonパッケージのインストール
 
 ```bash
@@ -290,17 +323,18 @@ python3 sync_sheets.py
 ## ファイル構成
 
 ```
-automation_bridge/
+案件自動応募/                  ← フォルダ名はインストール先によって異なる
 ├── CLAUDE.md              ← このファイル（セットアップ案内）
 ├── COWORK_SKILL.md        ← Coworkへの指示ルーター
 ├── my_profile.md          ← あなたの強み・実績（セットアップで自動生成）
 ├── my_profile.example.md  ← プロフィールの記入例
-├── config.json            ← スプレッドシートID・カラム定義
+├── config.json            ← base_dir・スプレッドシートID・カラム定義
+├── cowork_config.json     ← 検索条件・応募基準設定
 ├── sync_sheets.py         ← Google Sheets同期スクリプト
 ├── requirements.txt       ← 必要なPythonパッケージ
 ├── documents/             ← 履歴書・ポートフォリオ等の添付ファイル
 ├── sites/
-│   ├── crowdworks/
+│   ├── crowdworks/        ← サイト別設定（config.json + SKILL.md）
 │   ├── skillshift/
 │   ├── hipro/
 │   ├── furusatokengyo/
@@ -308,7 +342,7 @@ automation_bridge/
 │   ├── chiikizukan/
 │   ├── lifull/
 │   └── lotsful/
-├── inbox/                 ← Coworkが結果を書き出す場所
+├── inbox/                 ← Coworkが結果を書き出す場所（jsonl形式）
 ├── processed/             ← 処理済みファイル
 ├── error/                 ← エラーファイル
 └── logs/                  ← 実行ログ

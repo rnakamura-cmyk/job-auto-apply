@@ -1,4 +1,5 @@
 {
+  "base_dir": "",
   "spreadsheet_id": "YOUR_SPREADSHEET_ID_HERE",
   "credentials_path": "credentials.json",
   "sheet_names": {

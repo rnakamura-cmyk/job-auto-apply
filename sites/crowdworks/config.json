@@ -1,13 +1,19 @@
 {
-  "profile_path": "/Users/ryonkook/自動応募/automation_bridge/my_profile.md",
-
-  "sites": ["crowdworks"],
+  "site_name": "crowdworks",
+  "site_url": "https://crowdworks.jp",
+  "login_required": true,
 
   "search": {
     "categories": ["経営", "DX・AI導入支援", "ChatGPT・AI活用", "業務自動化", "GAS・スプレッドシート", "Webアプリ開発"],
     "reward_min": 5000,
     "status": "募集中のみ",
     "note": "カテゴリはチャットで上書き指定してもOK。例：「今日はGAS案件だけで」"
+  },
+
+  "search_filters": {
+    "remote_only": true,
+    "preferred_keywords": ["GAS", "ChatGPT", "AI導入", "業務自動化", "DX", "n8n", "Dify", "ノーコード", "スプレッドシート"],
+    "note": "クラウドワークスはカテゴリ選択 + キーワード検索が主な絞り込み手段"
   },
 
   "apply_criteria": {
@@ -27,5 +33,5 @@
   "message_strategy": "profile_match",
   "message_strategy_note": "profile_match = my_profile.md の強みと案件内容を照合して、その案件に最適化した応募文を自動生成する。固定文は使わない。",
 
-  "output_dir": "/Users/ryonkook/自動応募/automation_bridge/inbox"
+  "_output_note": "出力先は config.json の base_dir/inbox に統一。COWORK_SKILL.md が自動参照する。"
 }

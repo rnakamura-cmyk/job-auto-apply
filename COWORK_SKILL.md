@@ -9,25 +9,41 @@
 
 ---
 
+## Step 0. システムフォルダのパスを取得する
+
+**このStep 0は必ず最初に実行すること。**
+
+`COWORK_SKILL.md` と同じフォルダにある `config.json` を読み込み、`base_dir` の値を取得する。
+以降のすべてのパスは **`{base_dir}`** を基準に組み立てる。
+
+| OS | base_dir の例 |
+|----|--------------|
+| Windows | `C:\Users\yamada\Desktop\案件自動応募` |
+| Mac | `/Users/yamada/案件自動応募` |
+
+`base_dir` が空欄の場合は、`COWORK_SKILL.md` が置かれているフォルダのパスを `base_dir` として扱う。
+
+---
+
 ## Step 1. 対象サイトを特定する
 
 指示文からサイトを判断して、該当フォルダのファイルを読み込む：
 
 | 指示に含まれるキーワード | 参照フォルダ |
 |------------------------|-------------|
-| クラウドワークス / crowdworks / CW | `sites/crowdworks/` |
-| スキルシフト / skillshift / skill-shift | `sites/skillshift/` |
-| ハイプロ / hipro / HiPro Direct | `sites/hipro/` |
-| ふるさと兼業 / furusatokengyo | `sites/furusatokengyo/` |
-| オタノミ / otanomi | `sites/otanomi/` |
-| チイキズカン / chiikizukan | `sites/chiikizukan/` |
-| ライフル / lifull / LIFULL LOCAL MATCH | `sites/lifull/` |
-| ロッツフル / lotsful | `sites/lotsful/` |
+| クラウドワークス / crowdworks / CW | `{base_dir}/sites/crowdworks/` |
+| スキルシフト / skillshift / skill-shift | `{base_dir}/sites/skillshift/` |
+| ハイプロ / hipro / HiPro Direct | `{base_dir}/sites/hipro/` |
+| ふるさと兼業 / furusatokengyo | `{base_dir}/sites/furusatokengyo/` |
+| オタノミ / otanomi | `{base_dir}/sites/otanomi/` |
+| チイキズカン / chiikizukan | `{base_dir}/sites/chiikizukan/` |
+| ライフル / lifull / LIFULL LOCAL MATCH | `{base_dir}/sites/lifull/` |
+| ロッツフル / lotsful | `{base_dir}/sites/lotsful/` |
 
 読み込むファイル：
-- `/Users/ryonkook/自動応募/automation_bridge/sites/{サイト名}/config.json`
-- `/Users/ryonkook/自動応募/automation_bridge/sites/{サイト名}/SKILL.md`
-- `/Users/ryonkook/自動応募/automation_bridge/my_profile.md`（共通）
+- `{base_dir}/sites/{サイト名}/config.json`
+- `{base_dir}/sites/{サイト名}/SKILL.md`
+- `{base_dir}/my_profile.md`（共通）
 
 カテゴリ指定がある場合は config.json の categories より優先する。
 
@@ -35,7 +51,7 @@
 
 ## Step 2. 応募済みURLリストを読む（重複応募防止）
 
-`/Users/ryonkook/自動応募/automation_bridge/applied_urls.txt` を読み込む。
+`{base_dir}/applied_urls.txt` を読み込む。
 このファイルに含まれるURLは **サイト問わず必ずスキップ** する。
 ファイルが存在しない場合は空リストとして扱い続行する。
 
@@ -43,7 +59,7 @@
 
 ## Step 3. 案件を検索して候補を収集する（応募はまだしない）
 
-読み込んだ `sites/{サイト名}/SKILL.md` の手順に従ってサイトにアクセスし、案件を検索する。
+読み込んだ `{base_dir}/sites/{サイト名}/SKILL.md` の手順に従ってサイトにアクセスし、案件を検索する。
 **このステップでは応募せず、候補の収集のみ行う。**
 
 収集した案件を以下の基準でふるいにかける：
@@ -73,10 +89,10 @@
 1. 案件詳細ページを開く
 2. 応募文を自動生成（下記ルールに従う）
 3. フォームを埋めて応募送信
-4. フォームに添付欄がある場合は `/Users/ryonkook/自動応募/automation_bridge/documents/` 内のファイル（履歴書・ポートフォリオ等）を添付する
+4. フォームに添付欄がある場合は `{base_dir}/documents/` 内のファイル（履歴書・ポートフォリオ等）を添付する
 
 応募文の生成ルール：
-- 冒頭は「はじめまして、むらりょう（中村崚）と申します。」
+- 冒頭は `my_profile.md` の「名前」を使い「はじめまして、{名前}と申します。」で始める
 - 案件内容に直接触れる（「○○の自動化」「○○の立ち上げ支援」など）
 - my_profile.md の実績を1つ具体的に引用する
 - 300〜400文字程度
@@ -87,7 +103,7 @@
 
 ## Step 5. 結果をjsonlで出力する
 
-出力先: `/Users/ryonkook/自動応募/automation_bridge/inbox/{サイト名}_YYYYMMDD_HHMMSS.jsonl`
+出力先: `{base_dir}/inbox/{サイト名}_YYYYMMDD_HHMMSS.jsonl`
 
 **応募した案件（1件1行）:**
 ```
