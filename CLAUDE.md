@@ -42,7 +42,16 @@ git --version
 
 ---
 
-### 1-2. システムパスの自動検出
+### 1-2. Pythonパッケージのインストール
+
+```bash
+pip install -r requirements.txt
+```
+失敗したら `pip3 install -r requirements.txt` を試す。
+
+---
+
+### 1-3. システムパスの自動検出
 
 `config.json` の `base_dir` に、このフォルダの絶対パスを書き込む。
 
