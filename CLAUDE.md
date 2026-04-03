@@ -185,6 +185,15 @@ function doPost(e) {
 
 URLを受け取ったら `config.json` の `gas_url` を更新する。
 
+### 動作確認
+
+```bash
+python sync_sheets.py
+```
+
+「inbox/ に処理対象ファイルなし」と表示されれば成功。
+エラーが出た場合は `config.json` の `gas_url` が正しいか確認する。
+
 ---
 
 ## フェーズ4：サイトログイン確認
